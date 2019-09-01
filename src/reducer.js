@@ -1,4 +1,5 @@
-import { CLEAR_ALL, ADD_OPERAND, ADD_OPERATOR } from './types';
+import { CLEAR_ALL, ADD_OPERAND, ADD_OPERATOR, EVAL_PRECEDENCE } from './types';
+import operate from './utils/operate';
 
 const initialState = {
   display: [],
@@ -16,7 +17,7 @@ export default (state = initialState, action) => {
     case ADD_OPERAND:
       return {
         ...state,
-        operands: [...state.operands, action.payload],
+        operands: [action.payload, ...state.operands],
         display: [...state.display, action.payload]
       }
     case ADD_OPERATOR:
@@ -24,10 +25,21 @@ export default (state = initialState, action) => {
       
       return {
         ...state,
-        operators: [...state.operators, name],
+        operators: [name, ...state.operators],
         display: [...state.display, sym]
       }
+    case EVAL_PRECEDENCE: 
+      const [operator, ...restOperators] = state.operators;
+      const [a, b, ...restOperands] = state.operands;
+
+      const result = operate(operator, a, b);
+      
+      return {
+        ...state,
+        operands: [result, ...restOperands],
+        operators: [...restOperators]
+      };
     default:
       return state;
   }
-}
+};

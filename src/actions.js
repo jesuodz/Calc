@@ -1,4 +1,4 @@
-import { CLEAR_ALL, ADD_OPERAND, ADD_OPERATOR } from './types';
+import { CLEAR_ALL, ADD_OPERAND, ADD_OPERATOR, EVAL_PRECEDENCE  } from './types';
 
 export const clear = () => {
   return {
@@ -11,6 +11,7 @@ export const addOperand = operand => dispatch => {
     type: ADD_OPERAND,
     payload: operand
   });
+  dispatch(evalByPrecedence());
 };
 
 /**
@@ -26,4 +27,13 @@ export const addOperator = (operator_name, operator) => dispatch => {
       sym: operator
     }
   });
+};
+
+const evalByPrecedence = () => (dispatch, getState) => {
+  const state = getState();
+  const lastOperator = state.operators.slice(0)[0];
+
+  if (lastOperator === 'multiply' || lastOperator === 'divide') {
+    dispatch(evaluate());
+  }
 };
