@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
-// import { connect } from 'react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-class Display extends Component {
-  render() {
-    return (
-      <div className="input-container">
-        <input id="display" value={null} name="display" disabled />
-      </div>
-    );
-  }
-}
+const Display = ({ display }) => {
+  const displayVal = display.toString();
+  return (
+    <div className="input-container">
+      <input id="display" value={displayVal} name="display" disabled />
+    </div>
+  )
+};
 
-// const mapStateToProps = state => ({
-//   result: state.result
-// });
+Display.propTypes = {
+  display: PropTypes.array.isRequired
+};
 
-// export default connect(mapStateToProps, null)(Display);
-export default Display;
+const mapStateToProps = state => ({
+  display: state.display
+});
+
+export default connect(mapStateToProps, null)(Display);
