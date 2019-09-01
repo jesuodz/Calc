@@ -1,7 +1,7 @@
 import { CLEAR_ALL, ADD_OPERAND } from './types';
 
 const initialState = {
-  display: [0],
+  display: [],
   operands: [],
   operators: []
 };
@@ -16,7 +16,8 @@ export default (state = initialState, action) => {
     case ADD_OPERAND:
       return {
         ...state,
-        operands: action.payload
+        operands: [...action.payload],
+        display: [ ...state.display, action.payload]
       }
     default:
       return state;

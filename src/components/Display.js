@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const Display = ({ display }) => {
-  const displayVal = display.toString();
+  const displayVal = (display.length) ? display.join('') : '0';
   return (
     <div className="input-container">
       <input id="display" value={displayVal} name="display" disabled />
