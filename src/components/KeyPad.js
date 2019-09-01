@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { clear, addOperand } from '../actions';
+import { clear, addOperand, addOperator } from '../actions';
 
 class KeyPad extends Component {
   constructor(props) {
     super(props);
     this.handleOperand = this.handleOperand.bind(this);
-    // this.handleOperator = this.handleOperator.bind(this);
+    this.handleOperator = this.handleOperator.bind(this);
   }
 
   handleOperand(event) {
@@ -17,8 +17,10 @@ class KeyPad extends Component {
   }
 
   handleOperator(event) {
-    const operand = event.target.id;
-    // this.props.operand(operand);
+    const name = event.target.id;
+    const symbol = event.target.innerHTML;
+
+    this.props.addOperator(name, symbol);
   }
 
   render() {
@@ -59,4 +61,4 @@ KeyPad.propTypes = {
   addOperand: PropTypes.func.isRequired
 };
 
-export default connect(null, { clear, addOperand })(KeyPad);
+export default connect(null, { clear, addOperand, addOperator })(KeyPad);
