@@ -1,4 +1,9 @@
-import { CLEAR_ALL, ADD_OPERAND, ADD_OPERATOR, EVAL_PRECEDENCE  } from './types';
+import {
+  CLEAR_ALL,
+  ADD_OPERAND,
+  ADD_OPERATOR,
+  EVAL_PRECEDENCE
+} from './types';
 
 export const clear = () => {
   return {
@@ -34,6 +39,8 @@ const evalByPrecedence = () => (dispatch, getState) => {
   const lastOperator = state.operators.slice(0)[0];
 
   if (lastOperator === 'multiply' || lastOperator === 'divide') {
-    dispatch(evaluate());
+    dispatch({
+      type: EVAL_PRECEDENCE
+    });
   }
 };
