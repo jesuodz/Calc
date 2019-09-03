@@ -2,7 +2,8 @@ import {
   CLEAR_ALL,
   ADD_OPERAND,
   ADD_OPERATOR,
-  EVAL_PRECEDENCE
+  EVAL_PRECEDENCE,
+  UPDATE_DISPLAY
 } from './types';
 
 export const clear = () => {
@@ -16,6 +17,7 @@ export const addOperand = operand => dispatch => {
     type: ADD_OPERAND,
     payload: operand
   });
+  dispatch(updateDisplay(operand));
   dispatch(evalByPrecedence());
 };
 
@@ -32,6 +34,7 @@ export const addOperator = (operator_name, operator) => dispatch => {
       sym: operator
     }
   });
+  dispatch(updateDisplay(operator));
 };
 
 const evalByPrecedence = () => (dispatch, getState) => {
@@ -44,3 +47,10 @@ const evalByPrecedence = () => (dispatch, getState) => {
     });
   }
 };
+
+export const updateDisplay = output => dispatch => {
+  dispatch({
+    type: UPDATE_DISPLAY,
+    payload: output
+  })
+}

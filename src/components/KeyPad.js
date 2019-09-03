@@ -4,44 +4,27 @@ import { connect } from 'react-redux';
 
 import { clear, addOperand, addOperator } from '../actions';
 
-/*
-  SEE COMMIT LOG
-*/
-
 class KeyPad extends Component {
   constructor(props) {
     super(props);
-    this.state = { operands: [], operand: '' }
     this.handleOperand = this.handleOperand.bind(this);
     this.handleOperator = this.handleOperator.bind(this);
-    this.handleClear = this.handleClear.bind(this);
-  }
+  };
 
-  handleOperand = async event => {
+  handleOperand = event => {
     const input = event.target.innerHTML;
 
-    const newOp = [input, ...this.state.operands];
-
-    await this.setState({ operands: newOp, operand: newOp.join('') })
-    // await this.props.addOperand(input);
-  }
-
-  handleClear = async () => {
-    await this.setState({ operands: [], operand: '' });
-    await this.props.clear();
-  }
+    this.props.addOperand(input);
+  };
 
   handleOperator(event) {
     const name = event.target.id;
     const symbol = event.target.innerHTML;
 
-    this.props.addOperand(this.state.operand);
     this.props.addOperator(name, symbol);
-    this.setState({ operands: [], operand: '' });
-  }
+  };
 
   render() {
-    console.log(this.state);
     return (
       <div className='buttons'>
         <div className='button-container'>
@@ -71,12 +54,13 @@ class KeyPad extends Component {
         </div>
       </div>
     );
-  }
+  };
 };
 
 KeyPad.propTypes = {
   clear: PropTypes.func.isRequired,
-  addOperand: PropTypes.func.isRequired
+  addOperand: PropTypes.func.isRequired,
+  addOperator: PropTypes.func.isRequired
 };
 
 export default connect(null, { clear, addOperand, addOperator })(KeyPad);
