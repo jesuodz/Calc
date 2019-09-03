@@ -6,11 +6,7 @@ import {
   UPDATE_DISPLAY
 } from './types';
 
-export const clear = () => {
-  return {
-    type: CLEAR_ALL
-  };
-};
+export const clear = () => ({ type: CLEAR_ALL });
 
 export const addOperand = operand => dispatch => {
   dispatch ({
@@ -52,5 +48,5 @@ export const updateDisplay = output => dispatch => {
   dispatch({
     type: UPDATE_DISPLAY,
     payload: output
-  })
-}
+  });
+};
