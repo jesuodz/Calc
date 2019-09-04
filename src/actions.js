@@ -11,12 +11,16 @@ export const clear = () => {
   };
 };
 
-export const addOperand = operand => dispatch => {
-  dispatch ({
-    type: ADD_OPERAND,
-    payload: operand
-  });
-  dispatch(evalByPrecedence());
+export const addOperand = (operand, update = null) => dispatch => {
+  if (update) {
+    dispatch ({
+      type: ADD_OPERAND,
+      payload: operand
+    });
+  } else {
+    // Update display only
+    console.log(operand)
+  }
 };
 
 /**
@@ -32,11 +36,12 @@ export const addOperator = (operator_name, operator) => dispatch => {
       sym: operator
     }
   });
+  dispatch(evalByPrecedence());
 };
 
 const evalByPrecedence = () => (dispatch, getState) => {
   const state = getState();
-  const lastOperator = state.operators.slice(0)[0];
+  const lastOperator = state.operators.slice(0)[1];
 
   if (lastOperator === 'multiply' || lastOperator === 'divide') {
     dispatch({

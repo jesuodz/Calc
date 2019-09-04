@@ -20,24 +20,24 @@ class KeyPad extends Component {
   handleOperand = async event => {
     const input = event.target.innerHTML;
 
-    const newOp = [input, ...this.state.operands];
+    const newOp = [...this.state.operands, input];
 
     await this.setState({ operands: newOp, operand: newOp.join('') })
-    // await this.props.addOperand(input);
+    await this.props.addOperand(this.state.operand);
   }
 
-  handleClear = async () => {
+  handleClear = async event => {
+    if (event) this.props.clear();
     await this.setState({ operands: [], operand: '' });
-    await this.props.clear();
   }
 
   handleOperator(event) {
     const name = event.target.id;
     const symbol = event.target.innerHTML;
 
-    this.props.addOperand(this.state.operand);
+    this.props.addOperand(this.state.operand, true);
     this.props.addOperator(name, symbol);
-    this.setState({ operands: [], operand: '' });
+    this.handleClear();
   }
 
   render() {

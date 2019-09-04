@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         display: [...state.display, sym]
       }
     case EVAL_PRECEDENCE: 
-      const [operator, ...restOperators] = state.operators;
+      const [unwanted, operator, ...restOperators] = state.operators;
       const [a, b, ...restOperands] = state.operands;
 
       const result = operate(operator, a, b);
@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         operands: [result, ...restOperands],
-        operators: [...restOperators]
+        operators: [unwanted, ...restOperators]
       };
     default:
       return state;
