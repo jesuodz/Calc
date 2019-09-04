@@ -8,7 +8,7 @@ const Display = ({ display }) => {
     <div className="input-container">
       <input id="display" value={displayVal} name="display" disabled />
     </div>
-  )
+  );
 };
 
 Display.propTypes = {

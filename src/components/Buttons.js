@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Buttons = (
-  { handleOperator, handleOperand, handleClear }
+  { handleOperator, handleOperand, handleClear, handleEqual }
 ) => (
   <div className='buttons'>
     <div className='button-container'>
@@ -26,7 +26,7 @@ const Buttons = (
     <div className='button-container'>
       <button id='button0' value='0' onClick={handleOperand}>0</button>
       <button id='clearButton' onClick={handleClear}>C</button>
-      <button id='equalsButton'>=</button>
+      <button id='equalsButton' onClick={handleEqual}>=</button>
       <button id='substract' onClick={handleOperator}>-</button>
       <button id='decimal' onClick={handleOperand}>.</button>
     </div>
@@ -36,7 +36,8 @@ const Buttons = (
 Buttons.propTypes = {
   handleOperand: PropTypes.func.isRequired,
   handleClear: PropTypes.func.isRequired,
-  handleOperator: PropTypes.func.isRequired
+  handleOperator: PropTypes.func.isRequired,
+  handleEqual: PropTypes.func.isRequired
 };
 
 export default Buttons;

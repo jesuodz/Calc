@@ -11,6 +11,6 @@ const operate = (operator, b, a) => {
   const secondNum = Number(b);
 
   return operations[operator](firstNum, secondNum);
-}
+};
 
 export default operate;
