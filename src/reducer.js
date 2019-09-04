@@ -3,7 +3,8 @@ import {
   ADD_OPERAND,
   ADD_OPERATOR,
   EVAL_PRECEDENCE,
-  UPDATE_DISPLAY
+  UPDATE_DISPLAY,
+  EVAL_TOTAL
 } from './types';
 import operate from './utils/operate';
 
@@ -38,7 +39,7 @@ export default (state = initialState, action) => {
         display: [...state.display, action.payload]
       };
     case EVAL_PRECEDENCE: 
-      const [operator, ...restOperators] = state.operators;
+      const [unwanted, operator, ...restOperators] = state.operators;
       const [a, b, ...restOperands] = state.operands;
 
       const result = operate(operator, a, b);
@@ -46,8 +47,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         operands: [result, ...restOperands],
-        operators: [...restOperators]
+        operators: [unwanted, ...restOperators]
       };
+    case EVAL_TOTAL:
+      const { operands, operators } = state;
+      console.log( operands, operators )
+      // for (let i = 0; i < operators.length; i++) {
+      //   result = operate(operator[i], )
+      // }
+      return {
+        ...state,
+      }
     default:
       return state;
   };

@@ -3,18 +3,23 @@ import {
   ADD_OPERAND,
   ADD_OPERATOR,
   EVAL_PRECEDENCE,
-  UPDATE_DISPLAY
+  UPDATE_DISPLAY,
+  EVAL_TOTAL
 } from './types';
 
 export const clear = () => ({ type: CLEAR_ALL });
 
-export const addOperand = operand => dispatch => {
-  dispatch ({
-    type: ADD_OPERAND,
-    payload: operand
-  });
-  dispatch(updateDisplay(operand));
-  dispatch(evalByPrecedence());
+export const addOperand = (operand, update = null) => dispatch => {
+  if (update) {
+    dispatch ({
+      type: ADD_OPERAND,
+      payload: operand
+    });
+  } else {
+    const lastOperand = operand.slice(-1).toString();
+    dispatch(updateDisplay(lastOperand));
+    dispatch(evalByPrecedence());
+  }
 };
 
 /**
@@ -30,12 +35,13 @@ export const addOperator = (operator_name, operator) => dispatch => {
       sym: operator
     }
   });
+  dispatch(evalByPrecedence());
   dispatch(updateDisplay(operator));
 };
 
 const evalByPrecedence = () => (dispatch, getState) => {
   const state = getState();
-  const lastOperator = state.operators.slice(0)[0];
+  const lastOperator = state.operators.slice(0)[1];
 
   if (lastOperator === 'multiply' || lastOperator === 'divide') {
     dispatch({
@@ -50,3 +56,5 @@ export const updateDisplay = output => dispatch => {
     payload: output
   });
 };
+
+export const evalTotal = () => ({ type: EVAL_TOTAL });
