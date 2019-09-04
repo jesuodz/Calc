@@ -16,8 +16,10 @@ export const addOperand = (operand, update = null) => dispatch => {
       payload: operand
     });
   } else {
-    const lastOperand = operand.slice(-1).toString();
-    dispatch(updateDisplay(lastOperand));
+    if (operand.length) { // Got new operand
+      const lastOperand = operand.slice(-1).toString(); 
+      dispatch(updateDisplay(lastOperand));
+    } 
     dispatch(evalByPrecedence());
   }
 };
