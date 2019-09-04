@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { clear, addOperand, addOperator } from '../actions';
+import { clear, addOperand, addOperator, evalTotal } from '../actions';
 
 /*
   SEE COMMIT LOG
@@ -15,6 +15,7 @@ class KeyPad extends Component {
     this.handleOperand = this.handleOperand.bind(this);
     this.handleOperator = this.handleOperator.bind(this);
     this.handleClear = this.handleClear.bind(this);
+    this.handleEqual = this.handleEqual.bind(this);
   }
 
   handleOperand = async event => {
@@ -32,16 +33,25 @@ class KeyPad extends Component {
   }
 
   handleOperator(event) {
+    const { operand } = this.state;
     const name = event.target.id;
     const symbol = event.target.innerHTML;
 
-    this.props.addOperand(this.state.operand, true);
+    if (operand) this.props.addOperand(operand, true);
     this.props.addOperator(name, symbol);
     this.handleClear();
   }
 
+  handleEqual() {
+    const { operand } = this.state;
+
+    if (operand) this.props.addOperand(operand, true);
+    else this.props.addOperand(0);
+    this.handleClear();
+    this.props.evalTotal();
+  }
+
   render() {
-    console.log(this.state);
     return (
       <div className='buttons'>
         <div className='button-container'>
@@ -65,7 +75,7 @@ class KeyPad extends Component {
         <div className='button-container'>
           <button id='button0' value='0' onClick={this.handleOperand}>0</button>
           <button id='clearButton' onClick={this.props.clear}>C</button>
-          <button id='equalsButton'>=</button>
+          <button id='equalsButton' onClick={this.handleEqual}>=</button>
           <button id='substract' onClick={this.handleOperator}>-</button>
           <button id='decimal' onClick={this.handleOperand}>.</button>
         </div>
@@ -79,4 +89,6 @@ KeyPad.propTypes = {
   addOperand: PropTypes.func.isRequired
 };
 
-export default connect(null, { clear, addOperand, addOperator })(KeyPad);
+export default connect(null, {
+  clear, addOperand, addOperator, evalTotal
+})(KeyPad);

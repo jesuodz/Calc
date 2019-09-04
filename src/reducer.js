@@ -1,4 +1,4 @@
-import { CLEAR_ALL, ADD_OPERAND, ADD_OPERATOR, EVAL_PRECEDENCE } from './types';
+import { CLEAR_ALL, ADD_OPERAND, ADD_OPERATOR, EVAL_PRECEDENCE, EVAL_TOTAL } from './types';
 import operate from './utils/operate';
 
 const initialState = {
@@ -39,6 +39,15 @@ export default (state = initialState, action) => {
         operands: [result, ...restOperands],
         operators: [unwanted, ...restOperators]
       };
+    case EVAL_TOTAL:
+      const { operands, operators } = state;
+      console.log( operands, operators )
+      // for (let i = 0; i < operators.length; i++) {
+      //   result = operate(operator[i], )
+      // }
+      return {
+        ...state,
+      }
     default:
       return state;
   }

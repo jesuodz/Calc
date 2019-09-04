@@ -2,7 +2,8 @@ import {
   CLEAR_ALL,
   ADD_OPERAND,
   ADD_OPERATOR,
-  EVAL_PRECEDENCE
+  EVAL_PRECEDENCE,
+  EVAL_TOTAL
 } from './types';
 
 export const clear = () => {
@@ -49,3 +50,5 @@ const evalByPrecedence = () => (dispatch, getState) => {
     });
   }
 };
+
+export const evalTotal = () => ({ type: EVAL_TOTAL });
