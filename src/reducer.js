@@ -7,6 +7,7 @@ import {
   EVAL_TOTAL
 } from './types';
 import operate from './utils/operate';
+import extractOperations from './utils/extract-operations';
 
 const initialState = {
   display: [],
@@ -50,11 +51,10 @@ export default (state = initialState, action) => {
         operators: [unwanted, ...restOperators]
       };
     case EVAL_TOTAL:
+      // See commit log
       const { operands, operators } = state;
-      console.log( operands, operators )
-      // for (let i = 0; i < operators.length; i++) {
-      //   result = operate(operator[i], )
-      // }
+      let {first, last, operator_name} = extractOperations(operands, operators);
+      console.log(operate(operator_name, last, first));
       return {
         ...state,
       }
