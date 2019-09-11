@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Buttons from './Buttons';
+import Buttons from './components/Buttons';
 
-import { clear, addOperand, addOperator, evalTotal } from '../actions';
+import { clear, addOperand, addOperator, evalTotal } from '../../actions';
 
 class KeyPad extends Component {
   constructor(props) {

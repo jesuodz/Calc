@@ -4,7 +4,7 @@ import Display from './components/Display';
 import KeyPad from './components/KeyPad';
 import Footer from './components/Footer';
 
-import './App.css';
+import './index.css';
 
 class App extends Component {
   render() {

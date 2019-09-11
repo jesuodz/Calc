@@ -6,7 +6,7 @@ import {
   UPDATE_DISPLAY,
   EVAL_TOTAL
 } from './types';
-import operate from './utils/operate';
+import operate from '../utils/operate';
 
 const initialState = {
   display: [],
